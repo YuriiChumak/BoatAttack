@@ -1,9 +1,17 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: f5d715ee083c2438f89aa044883b30d6
 =======
 <<<<<<< HEAD:Assets/Scripts/Editor/Benchmark/BenchmarkWindow.cs.meta
 guid: 290d992aa994147e39cd874f01c301f5
+=======
+guid: f5d715ee083c2438f89aa044883b30d6
+>>>>>>> parent of fdd4ba7... Changed Lod Lightmaps to run only in editor and only when needed (#118):Assets/Scripts/Effects/LODLightmaps.cs.meta
+>>>>>>> parent of fdd4ba7... Changed Lod Lightmaps to run only in editor and only when needed (#118)
+=======
+<<<<<<< HEAD:Assets/Scripts/System/Benchmark/Benchmark.cs.meta
+guid: b37edc8ef99daa74397bbf52c22e104b
 =======
 guid: f5d715ee083c2438f89aa044883b30d6
 >>>>>>> parent of fdd4ba7... Changed Lod Lightmaps to run only in editor and only when needed (#118):Assets/Scripts/Effects/LODLightmaps.cs.meta
