@@ -31,7 +31,7 @@ namespace WaterSystem
 
         public static void Init()
         {
-            if(UniversalRenderPipeline.asset.debugLevel != PipelineDebugLevel.Disabled)
+            if(Debug.isDebugBuild)
                 Debug.Log("Initializing Gerstner Waves Jobs");
             //Wave data
             _waveCount = Water.Instance._waves.Length;
@@ -50,7 +50,7 @@ namespace WaterSystem
 
         public static void Cleanup()
         {
-            if(UniversalRenderPipeline.asset.debugLevel != PipelineDebugLevel.Disabled)
+            if(Debug.isDebugBuild)
                 Debug.Log("Cleaning up Gerstner Wave Jobs");
             _waterHeightHandle.Complete();
 
@@ -95,13 +95,19 @@ namespace WaterSystem
             
             _processing = true;
 
+#if STATIC_EVERYTHING
+            var t = 0.0f;
+#else
+            var t = Time.time;
+#endif
+
             // Buoyant Object Job
             var waterHeight = new HeightJob()
             {
                 WaveData = _waveData,
                 Position = _positions,
                 OffsetLength = new int2(0, _positions.Length),
-                Time = Time.time,
+                Time = t,
                 OutPosition = _wavePos,
                 OutNormal = _waveNormal
             };

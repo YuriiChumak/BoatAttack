@@ -62,14 +62,14 @@ namespace BoatAttack
         // Use this for initialization
         private void Awake()
         {
-            if(UniversalRenderPipeline.asset.debugLevel == PipelineDebugLevel.Profiling)
+            if(Debug.isDebugBuild)
                 Debug.Log("AppManager initializing");
             Initialize();
             CmdArgs();
             SetRenderScale();
             SceneManager.sceneLoaded += LevelWasLoaded;
         }
-
+        
         private void Initialize()
         {
             Instance = this;
@@ -77,7 +77,7 @@ namespace BoatAttack
             DontDestroyOnLoad(ConsoleCanvas);
             MainCamera = Camera.main;
         }
-        
+
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= LevelWasLoaded;
@@ -86,6 +86,9 @@ namespace BoatAttack
         private static void LevelWasLoaded(Scene scene, LoadSceneMode mode)
         {
             CleanupCameras();
+#if STATIC_EVERYTHING
+            Utility.StaticObjects();
+#endif
             Instance.Invoke(nameof(CleanupLoadingScreen), 0.5f);
         }
 
@@ -120,7 +123,7 @@ namespace BoatAttack
             };
             var renderScale = Mathf.Clamp(res / Screen.width, 0.1f, 1.0f);
 
-            if(UniversalRenderPipeline.asset.debugLevel == PipelineDebugLevel.Profiling)
+            if(Debug.isDebugBuild)
                 Debug.Log($"Settings render scale to {renderScale * 100}% based on {maxRenderSize.ToString()}");
 
             maxScale = renderScale;
@@ -255,7 +258,7 @@ namespace BoatAttack
             }
             yield return assetLoading;
         }
-        
+
         public static void ExitGame(string s = "null")
         {
             if(s != "null")
@@ -273,8 +276,7 @@ namespace BoatAttack
             if (args.Length <= 0) return;
             foreach (var argRaw in args)
             {
-                if (argRaw[0] != '-') continue;
-
+                if(string.IsNullOrEmpty(argRaw) || argRaw[0] != '-') continue;
                 var arg = argRaw.Split(':');
 
                 switch (arg[0])
